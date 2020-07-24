@@ -48,17 +48,25 @@ class Dashboard extends Component {
     }
   }
 
+  handleDelete = (noteId) => {
+    const API = `http://localhost:3001/notes/${noteId}`;
+    axios.delete(API);
+  };
+
   render() {
     return (
       <div>
         <NavBar user={this.props.user} />
         <Typography
-          variant="h3"
-          style={{ marginTop: "45px", textAlign: "center" }}
+          variant="h1"
+          style={{ marginTop: "100px", textAlign: "center" }}
         >
           Dashboard
         </Typography>
-        <NotesContainer notes={this.state.notes} />
+        <NotesContainer
+          notes={this.state.notes}
+          handleDelete={this.handleDelete}
+        />
         {/* <Button onClick={this.handleLogoutClick}>Log out</Button> */}
       </div>
     );

@@ -1,8 +1,9 @@
+// Necessary imports
 import React, { Component } from "react";
 import axios from "axios";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
+import { Button, Input, InputLabel, FormGroup } from "@material-ui/core";
 
+// Main class
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,9 @@ class Login extends Component {
     };
   }
 
+  // Function gets invoked when Form is submitted,
+  // a post request using Axios is made to the back-end
+  // to create a new session
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
@@ -29,6 +33,8 @@ class Login extends Component {
         { withCredentials: true }
       )
       .then((response) => {
+        // if the response from the backend
+        // is true then run update parent state
         if (response.data.logged_in) {
           this.props.handleSuccesfulAuth(response.data);
         }
@@ -36,6 +42,7 @@ class Login extends Component {
       .catch((err) => console.log(err));
   };
 
+  // Handles controlled form for all inputs
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -45,7 +52,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <form
+        <FormGroup
           onSubmit={this.handleSubmit}
           style={{ textAlign: "center", marginTop: "10px" }}
         >
@@ -56,7 +63,7 @@ class Login extends Component {
             value={this.state.email}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "10px" }}
+            style={{ marginBottom: "10px", fontSize: "20px" }}
           />
           <br />
 
@@ -67,21 +74,21 @@ class Login extends Component {
             value={this.state.password}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "30px" }}
+            style={{ marginBottom: "30px", fontSize: "20px" }}
           />
           <br />
 
           <Button
+            size="large"
             variant="contained"
             color="primary"
             type="submit"
-            style={{ marginTop: "5px" }}
+            style={{ fontSize: "15px", marginTop: "5px" }}
             onClick={this.handleSubmit}
-            style={{ marginBottom: "5px" }}
           >
             Login
           </Button>
-        </form>
+        </FormGroup>
       </div>
     );
   }

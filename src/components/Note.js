@@ -1,11 +1,16 @@
 import React, { Component } from "react";
-import { Typography } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import {
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  CardActionArea,
+} from "@material-ui/core";
 
 class Note extends Component {
   render() {
-    const { description } = this.props.note;
+    const { id, description } = this.props.note;
     return (
       <div>
         <Card
@@ -16,8 +21,18 @@ class Note extends Component {
           }}
         >
           <CardContent>
-            <Typography variant="body2">{description}</Typography>
+            <Typography variant="h4">{description}</Typography>
           </CardContent>
+
+          <CardActions>
+            <Button
+              onClick={() => this.props.handleDelete(id)}
+              variant="outlined"
+              color="secondary"
+            >
+              Delete
+            </Button>
+          </CardActions>
         </Card>
       </div>
     );

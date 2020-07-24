@@ -1,9 +1,13 @@
+// Parent component
+
+// Necessary imports
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 
+// Main class
 export default class App extends Component {
   constructor() {
     super();
@@ -14,7 +18,12 @@ export default class App extends Component {
     };
   }
 
+  // Function uses the axios library to make a GET request to
+  // the rails API. Returns a response that includes a logged_in
+  // key that it's either true or false and a user key with
+  // the current user or an empty object
   checkLoginStatus = () => {
+    // It also modifies the state to reflect the status of the session
     axios
       .get("http://localhost:3001/logged_in", { withCredentials: true })
       .then((response) => {
@@ -39,6 +48,8 @@ export default class App extends Component {
       .catch((error) => console.log("Error", error));
   };
 
+  // Get's invoked when the login/registration
+  // form is submitted
   handleLogin = (data) => {
     this.setState({
       loggedInStatus: "LOGGED_IN",
@@ -46,10 +57,15 @@ export default class App extends Component {
     });
   };
 
+  // Once the component is mounted
+  // it runs checkLoginStatus to check there is
+  // already a cookie in the browser
   componentDidMount() {
     this.checkLoginStatus();
   }
 
+  // Get invoked when the log out button is clicked,
+  // modifies the state and gets rid of the user object
   handleLogout = () => {
     this.setState({
       loggedInStatus: "NOT_LOGGED_IN",
@@ -57,7 +73,9 @@ export default class App extends Component {
     });
   };
 
+  // Renders two child components: Home and Dashboard
   render() {
+    const { status, user } = this.state;
     return (
       <div className="app">
         <Router>
@@ -69,8 +87,7 @@ export default class App extends Component {
                 <Home
                   {...props}
                   handleLogin={this.handleLogin}
-                  handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
+                  loggedInStatus={status}
                 />
               )}
             />
@@ -81,8 +98,8 @@ export default class App extends Component {
                 <Dashboard
                   {...props}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
-                  user={this.state.user}
+                  loggedInStatus={status}
+                  user={user}
                 />
               )}
             />

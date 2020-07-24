@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
+import FormGroup from "@material-ui/core";
 
 class Registration extends Component {
   constructor(props) {
@@ -51,7 +52,10 @@ class Registration extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} style={{ textAlign: "center" }}>
+        <form
+          onSubmit={this.handleSubmit}
+          style={{ textAlign: "center", marginTop: "10px" }}
+        >
           <Input
             type="email"
             name="email"
@@ -59,7 +63,7 @@ class Registration extends Component {
             value={this.state.email}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "10px" }}
+            style={{ marginBottom: "10px", fontSize: "20px" }}
           />
           <br />
 
@@ -70,7 +74,7 @@ class Registration extends Component {
             value={this.state.password}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "10px" }}
+            style={{ marginBottom: "10px", fontSize: "20px" }}
           />
           <br />
 
@@ -81,12 +85,12 @@ class Registration extends Component {
             value={this.state.password_confirmation}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "30px" }}
+            style={{ marginBottom: "30px", fontSize: "20px" }}
           />
           <br />
 
           <Button
-            style={{ marginBottom: "5px" }}
+            style={{ fontSize: "15px", marginTop: "5px" }}
             variant="contained"
             color="primary"
             onClick={this.handleSubmit}
