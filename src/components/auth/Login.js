@@ -1,7 +1,13 @@
 // Necessary imports
 import React, { Component } from "react";
 import axios from "axios";
-import { Button, Input, InputLabel, FormGroup } from "@material-ui/core";
+import {
+  Button,
+  Input,
+  InputLabel,
+  FormGroup,
+  FormHelperText,
+} from "@material-ui/core";
 
 // Main class
 class Login extends Component {
@@ -88,6 +94,9 @@ class Login extends Component {
           >
             Login
           </Button>
+          <FormHelperText id="my-helper-text">
+            We'll never share your email.
+          </FormHelperText>
         </FormGroup>
       </div>
     );

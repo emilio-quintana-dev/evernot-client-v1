@@ -5,12 +5,27 @@ import {
   Card,
   CardContent,
   CardActions,
-  CardActionArea,
 } from "@material-ui/core";
 
 class Note extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isDone: false,
+    };
+  }
+
+  toggleDone = () => {
+    const newState = !this.state.isDone;
+    this.setState({
+      isDone: newState,
+    });
+  };
+
   render() {
-    const { id, description } = this.props.note;
+    const { id, description, done } = this.props.note;
+    console.log("Note props", this.props);
     return (
       <div>
         <Card
@@ -32,6 +47,20 @@ class Note extends Component {
             >
               Delete
             </Button>
+
+            {!this.state.isDone ? (
+              <Button
+                onClick={this.toggleDone}
+                variant="outlined"
+                color="primary"
+              >
+                Mark as done
+              </Button>
+            ) : (
+              <Button variant="contained" disabled>
+                Done!
+              </Button>
+            )}
           </CardActions>
         </Card>
       </div>

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
-import FormGroup from "@material-ui/core";
+import { Button, Input, FormGroup, FormHelperText } from "@material-ui/core";
 
 class Registration extends Component {
   constructor(props) {
@@ -52,7 +50,7 @@ class Registration extends Component {
   render() {
     return (
       <div>
-        <form
+        <FormGroup
           onSubmit={this.handleSubmit}
           style={{ textAlign: "center", marginTop: "10px" }}
         >
@@ -97,7 +95,10 @@ class Registration extends Component {
           >
             Register
           </Button>
-        </form>
+          <FormHelperText id="my-helper-text">
+            We'll never share your email.
+          </FormHelperText>
+        </FormGroup>
       </div>
     );
   }

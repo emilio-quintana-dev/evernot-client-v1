@@ -48,12 +48,21 @@ class Dashboard extends Component {
     }
   }
 
+  // Makes a delete request to the backend to delete the note
+  // and updates the front-end state
   handleDelete = (noteId) => {
     const API = `http://localhost:3001/notes/${noteId}`;
-    axios.delete(API);
+    axios.delete(API).then((response) => console.log(response));
+
+    const updatedNotes = this.state.notes.filter((note) => note.id !== noteId);
+
+    this.setState({
+      notes: updatedNotes,
+    });
   };
 
   render() {
+    console.log("Done: ", this.state.done);
     return (
       <div>
         <NavBar user={this.props.user} />
@@ -65,6 +74,7 @@ class Dashboard extends Component {
         </Typography>
         <NotesContainer
           notes={this.state.notes}
+          done={this.state.done}
           handleDelete={this.handleDelete}
         />
         {/* <Button onClick={this.handleLogoutClick}>Log out</Button> */}

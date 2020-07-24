@@ -9,6 +9,7 @@ class NotesContainer extends Component {
           note={note}
           key={note.id}
           handleDelete={this.props.handleDelete}
+          handleDone={this.props.handleDone}
         />
       );
     });

@@ -58,7 +58,7 @@ class Home extends Component {
           padding: "20px",
           textAlign: "center",
           width: "350px",
-          height: "475px",
+
           marginTop: "30px",
         }}
       >
@@ -78,18 +78,33 @@ class Home extends Component {
           {this.state.showRegForm ? (
             <Registration handleSuccesfulAuth={this.handleSuccesfulAuth} />
           ) : null}
-          <Button
-            size="small"
-            variant="contained"
-            style={{
-              marginTop: "25px",
-              marginBottom: "0px",
-              fontSize: "15px",
-            }}
-            onClick={this.toggleForm}
-          >
-            or create an account
-          </Button>
+
+          {this.state.showLogForm ? (
+            <Button
+              size="small"
+              style={{
+                marginTop: "25px",
+                marginBottom: "0px",
+                fontSize: "15px",
+              }}
+              onClick={this.toggleForm}
+            >
+              or create an account
+            </Button>
+          ) : null}
+          {this.state.showRegForm ? (
+            <Button
+              size="small"
+              style={{
+                marginTop: "25px",
+                marginBottom: "0px",
+                fontSize: "15px",
+              }}
+              onClick={this.toggleForm}
+            >
+              or sign in
+            </Button>
+          ) : null}
         </CardContent>
       </Card>
     );
