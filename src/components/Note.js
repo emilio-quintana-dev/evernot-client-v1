@@ -44,6 +44,7 @@ class Note extends Component {
               onClick={() => this.props.handleDelete(id)}
               variant="outlined"
               color="secondary"
+              size="medium"
             >
               Delete
             </Button>
@@ -53,11 +54,12 @@ class Note extends Component {
                 onClick={this.toggleDone}
                 variant="outlined"
                 color="primary"
+                size="medium"
               >
                 Mark as done
               </Button>
             ) : (
-              <Button variant="contained" disabled>
+              <Button variant="contained" size="medium" disabled>
                 Done!
               </Button>
             )}

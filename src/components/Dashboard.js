@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { Typography, Button } from "@material-ui/core";
 import NotesContainer from "./NotesContainer";
 import NavBar from "./NavBar";
-import { Typography } from "@material-ui/core";
 
 class Dashboard extends Component {
   constructor() {
