@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Typography, Button } from "@material-ui/core";
 import NotesContainer from "./NotesContainer";
+import Modal from "./Modal";
 import NavBar from "./NavBar";
+import { connect } from "react-redux";
+import { fetchNotes } from "../actions/fetchNotes";
+import { deleteNote } from "../actions/deleteNote";
 
 class Dashboard extends Component {
   constructor() {
@@ -10,7 +14,6 @@ class Dashboard extends Component {
 
     this.state = {
       notes: [],
-      errorMessages: "",
     };
   }
 
@@ -19,6 +22,7 @@ class Dashboard extends Component {
       .delete("http://localhost:3001/logout", { withCredentials: true })
       .then((response) => {
         this.props.handleLogout();
+        this.props.history.push("/");
       })
       .catch((error) => console.log("Error", error));
   };
@@ -30,7 +34,7 @@ class Dashboard extends Component {
 
       fetch(API)
         .then((response) => response.json())
-        .then((data) => this.setState({ notes: data.notes }))
+        .then((data) => this.props.fetchNotes(data.notes))
         .catch((error) => console.log(error));
     }
   }
@@ -42,44 +46,55 @@ class Dashboard extends Component {
 
       fetch(API)
         .then((response) => response.json())
-        .then((data) => this.setState({ notes: data.notes }))
+        .then((data) => this.props.fetchNotes(data.notes))
         .catch((error) => console.log(error));
     }
   }
 
-  // Makes a delete request to the backend to delete the note
-  // and updates the front-end state
+  //-----------x--------------------------x--------->
+
   handleDelete = (noteId) => {
     const API = `http://localhost:3001/notes/${noteId}`;
     axios.delete(API).then((response) => console.log(response));
+    this.props.deleteNote(noteId);
+  };
 
-    const updatedNotes = this.state.notes.filter((note) => note.id !== noteId);
-
+  toggleForm = () => {
+    const newState = !this.state.showNewForm;
     this.setState({
-      notes: updatedNotes,
+      showNewForm: newState,
     });
   };
 
   render() {
-    console.log("Done: ", this.state.done);
+    console.log("Dashboard Props ----", this.props);
     return (
       <div>
-        <NavBar user={this.props.user} />
+        <NavBar
+          user={this.props.user}
+          handleLogoutClick={this.handleLogoutClick}
+        />
         <Typography
           variant="h1"
-          style={{ marginTop: "100px", textAlign: "center" }}
+          style={{
+            marginTop: "100px",
+            textAlign: "center",
+            color: "#FFF",
+            fontWeight: "bold",
+            fontSize: "70px",
+          }}
         >
           Dashboard
         </Typography>
-        <NotesContainer
-          notes={this.state.notes}
-          done={this.state.done}
-          handleDelete={this.handleDelete}
-        />
-        {/* <Button onClick={this.handleLogoutClick}>Log out</Button> */}
+        <Modal userId={this.props.user.id} />
+        <NotesContainer handleDelete={this.handleDelete} />
       </div>
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return { notes: state.notes };
+};
+
+export default connect(mapStateToProps, { fetchNotes, deleteNote })(Dashboard);

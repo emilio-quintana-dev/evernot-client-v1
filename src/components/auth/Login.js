@@ -89,14 +89,16 @@ class Login extends Component {
             variant="contained"
             color="primary"
             type="submit"
-            style={{ fontSize: "15px", marginTop: "5px" }}
+            style={{
+              marginBottom: "10px",
+              backgroundColor: "#17252A",
+              color: "#FFF",
+              fontSize: "20px",
+            }}
             onClick={this.handleSubmit}
           >
             Login
           </Button>
-          <FormHelperText id="my-helper-text">
-            We'll never share your email.
-          </FormHelperText>
         </FormGroup>
       </div>
     );
