@@ -1,104 +1,105 @@
-// Parent component
-
-// Necessary imports
+//              Necesary Imports
+// ---------------x--------------------x---------------
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 import axios from "axios";
+//              Custom Component
+// ---------------x--------------------x---------------
 import Home from "./Home";
 import Dashboard from "./Dashboard";
+import ErrorSnackbar from "./ErrorSnackbar";
+//              Actions
+// ---------------x--------------------x---------------
+import { loginUser } from "../actions/loginUser";
+import { logoutUser } from "../actions/logoutUser";
 
-// Main class
-export default class App extends Component {
+//              Main Component
+// ---------------x--------------------x---------------
+class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {},
+      showSnackbar: false,
     };
   }
 
-  // Function uses the axios library to make a GET request to
-  // the rails API. Returns a response that includes a logged_in
-  // key that it's either true or false and a user key with
-  // the current user or an empty object
+  //              Checks for cookies
+  // ---------------x--------------------x---------------
+  componentDidMount() {
+    this.checkLoginStatus();
+  }
+
   checkLoginStatus = () => {
-    // It also modifies the state to reflect the status of the session
     axios
       .get("http://localhost:3001/logged_in", { withCredentials: true })
       .then((response) => {
         if (
           response.data.logged_in &&
-          this.state.loggedInStatus === "NOT_LOGGED_IN"
+          this.props.loggedInStatus === "NOT_LOGGED_IN"
         ) {
-          this.setState({
-            loggedInStatus: "LOGGED_IN",
-            user: response.data.user,
-          });
+          this.props.loginUser(response.data.user);
         } else if (
           !response.data.logged_in &&
-          this.state.loggedInStatus === "LOGGED_IN"
+          this.props.loggedInStatus === "LOGGED_IN"
         ) {
-          this.setState({
-            loggedInStatus: "NOT_LOGGED_IN",
-            user: {},
-          });
+          this.props.logoutUser();
         }
       })
       .catch((error) => console.log("Error", error));
   };
 
-  // Get's invoked when the login/registration
-  // form is submitted
+  //              Sends LOGIN action to store
+  // ---------------x--------------------x---------------
   handleLogin = (data) => {
-    this.setState({
-      loggedInStatus: "LOGGED_IN",
-      user: data.user,
-    });
+    this.props.loginUser(data.user);
   };
 
-  // Once the component is mounted
-  // it runs checkLoginStatus to check there is
-  // already a cookie in the browser
-  componentDidMount() {
-    this.checkLoginStatus();
-  }
-
-  // Get invoked when the log out button is clicked,
-  // modifies the state and gets rid of the user object
+  //              Sends LOGOUT action to store
+  // ---------------x--------------------x---------------
   handleLogout = () => {
-    this.setState({
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {},
-    });
+    this.props.logoutUser();
   };
 
-  // Renders two child components: Home and Dashboard
+  //      Displays SnackBar if there is a login error
+  // ---------------x--------------------x---------------
+  displaySnackbar = () => {
+    this.setState({
+      showSnackbar: true,
+    });
+
+    setTimeout(() => {
+      this.setState({ showSnackbar: false });
+    }, 5000);
+  };
+
   render() {
-    const { status, user } = this.state;
+    const { loggedInStatus, user } = this.props;
     return (
       <div className="app">
+        {this.state.showSnackbar ? <ErrorSnackbar /> : null}
         <Router>
           <Switch>
             <Route
               exact
-              path={"/"}
+              path={"/login"}
               render={(props) => (
                 <Home
                   {...props}
                   handleLogin={this.handleLogin}
-                  loggedInStatus={status}
+                  loggedInStatus={loggedInStatus}
+                  displaySnackbar={this.displaySnackbar}
                 />
               )}
             />
             <Route
-              exact
-              path={"/dashboard"}
-              render={(props) => (
+              path={"/notes"}
+              render={(routerProps) => (
                 <Dashboard
-                  {...props}
+                  {...routerProps}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={status}
+                  loggedInStatus={loggedInStatus}
                   user={user}
                 />
               )}
@@ -109,3 +110,14 @@ export default class App extends Component {
     );
   }
 }
+
+//              Reading Access to Store
+// ---------------x--------------------x---------------
+const mapStateToProps = (state) => {
+  return {
+    loggedInStatus: state.loggedInStatus,
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps, { loginUser, logoutUser })(App);

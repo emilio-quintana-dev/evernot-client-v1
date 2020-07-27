@@ -1,9 +1,17 @@
+//              Necesary Imports
+// ---------------x--------------------x---------------
 import React, { Component } from "react";
 import axios from "axios";
+//              Auth Component
+// ---------------x--------------------x---------------
 import Registration from "./auth/Registration";
 import Login from "./auth/Login";
+//              UI Components
+// ---------------x--------------------x---------------
 import { Card, CardContent, Button, Typography } from "@material-ui/core";
 
+//              Login/Registration Page
+// ---------------x--------------------x---------------
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -14,20 +22,15 @@ class Home extends Component {
     };
   }
 
+  //   Sends LOGIN action and re-directs to dashboard
+  // ---------------x--------------------x---------------
   handleSuccesfulAuth = (data) => {
     this.props.handleLogin(data);
-    this.props.history.push("/dashboard");
+    this.props.history.push("/notes");
   };
 
-  handleLogoutClick = () => {
-    axios
-      .delete("http://localhost:3001/logout", { withCredentials: true })
-      .then((response) => {
-        this.props.handleLogout();
-      })
-      .catch((error) => console.log("Error", error));
-  };
-
+  //   Toggles between Login and Registration Form
+  // ---------------x--------------------x---------------
   toggleForm = () => {
     const newRegForm = !this.state.showRegForm;
     const newLogForm = !this.state.showLogForm;
@@ -38,6 +41,8 @@ class Home extends Component {
     });
   };
 
+  //            Renders Login/Registration Card
+  // ---------------x--------------------x---------------
   renderLoginCard = () => {
     return (
       <Card
@@ -59,7 +64,10 @@ class Home extends Component {
           </Typography>
 
           {this.state.showLogForm ? (
-            <Login handleSuccesfulAuth={this.handleSuccesfulAuth} />
+            <Login
+              handleSuccesfulAuth={this.handleSuccesfulAuth}
+              displaySnackbar={this.props.displaySnackbar}
+            />
           ) : null}
           {this.state.showRegForm ? (
             <Registration handleSuccesfulAuth={this.handleSuccesfulAuth} />

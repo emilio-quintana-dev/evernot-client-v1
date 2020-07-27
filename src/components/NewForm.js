@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button, Input, FormGroup } from "@material-ui/core";
+import {
+  Button,
+  Input,
+  FormGroup,
+  Typography,
+  TextField,
+} from "@material-ui/core";
 import { connect } from "react-redux";
 import { addNote } from "../actions/addNote";
 
-class Form extends Component {
+class NewForm extends Component {
   constructor() {
     super();
 
@@ -31,7 +37,7 @@ class Form extends Component {
       .then((response) => {
         if (response.data.status === "created") {
           this.props.addNote(response.data.note);
-          this.props.handleClose();
+          this.props.history.push("/notes");
         } else {
           console.log(response);
         }
@@ -48,10 +54,13 @@ class Form extends Component {
   render() {
     return (
       <div>
-        <FormGroup
-          onSubmit={this.handleSubmit}
-          style={{ textAlign: "center", marginTop: "10px" }}
+        <Typography
+          variant="h1"
+          style={{ marginTop: "100px", marginBottom: "20px", color: "#FFF" }}
         >
+          Add a new note:
+        </Typography>
+        <FormGroup onSubmit={this.handleSubmit} style={{ textAlign: "center" }}>
           <Input
             type="text"
             name="title"
@@ -63,15 +72,21 @@ class Form extends Component {
           />
           <br />
 
-          <Input
-            type="text"
+          <TextField
+            style={{
+              backgroundColor: "#FFF",
+              minWidth: "600px",
+              minHeight: "200px",
+            }}
+            multiline
+            rows={20}
             name="description"
-            placeholder="Description"
+            placeholder="Content"
             value={this.state.description}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "10px", fontSize: "20px" }}
           />
+
           <br />
 
           <Button
@@ -94,4 +109,4 @@ class Form extends Component {
   }
 }
 
-export default connect(null, { addNote })(Form);
+export default connect(null, { addNote })(NewForm);

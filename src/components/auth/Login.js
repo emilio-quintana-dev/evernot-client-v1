@@ -1,29 +1,21 @@
-// Necessary imports
 import React, { Component } from "react";
 import axios from "axios";
-import {
-  Button,
-  Input,
-  InputLabel,
-  FormGroup,
-  FormHelperText,
-} from "@material-ui/core";
+import { Button, Input, FormGroup } from "@material-ui/core";
 
-// Main class
+//              Controlled Form for Logins
+// ---------------x--------------------x---------------
 class Login extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       email: "",
       password: "",
-      loginErrors: "",
     };
   }
 
-  // Function gets invoked when Form is submitted,
-  // a post request using Axios is made to the back-end
-  // to create a new session
+  //              Handles Submission of User
+  // ---------------x--------------------x---------------
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
@@ -39,16 +31,17 @@ class Login extends Component {
         { withCredentials: true }
       )
       .then((response) => {
-        // if the response from the backend
-        // is true then run update parent state
         if (response.data.logged_in) {
           this.props.handleSuccesfulAuth(response.data);
+        } else {
+          this.props.displaySnackbar();
         }
       })
       .catch((err) => console.log(err));
   };
 
-  // Handles controlled form for all inputs
+  //              Controlled Form On Change Listener
+  // ---------------x--------------------x---------------
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,

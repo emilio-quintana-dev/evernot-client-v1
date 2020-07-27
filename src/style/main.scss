@@ -27,3 +27,11 @@ body {
   display: grid;
   justify-items: center;
 }
+
+#footer {
+  background-color: #17252a;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem; /* Footer height */
+}

@@ -10,7 +10,7 @@ const NavBar = (props) => {
       <Toolbar variant="dense">
         <Typography
           style={{
-            fontSize: "30px",
+            fontSize: "25px",
             color: "#FFF",
             marginRight: "10px",
             flexGrow: 1,
@@ -18,10 +18,21 @@ const NavBar = (props) => {
         >
           Notify •••
         </Typography>
+
+        <Button
+          onClick={props.handleNewClick}
+          variant="contained"
+          style={{
+            fontSize: "15px",
+            marginRight: "10px",
+          }}
+        >
+          New Note
+        </Button>
         <Button
           variant="contained"
           onClick={props.handleLogoutClick}
-          style={{ fontSize: "20px" }}
+          style={{ fontSize: "15px" }}
         >
           Log out
         </Button>

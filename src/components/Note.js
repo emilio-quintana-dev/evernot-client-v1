@@ -1,64 +1,24 @@
-// import React, { Component } from "react";
-// import {
-//   Typography,
-//   Button,
-//   Card,
-//   CardContent,
-//   CardActions,
-// } from "@material-ui/core";
-
-// class Note extends Component {
-//   constructor() {
-//     super();
-//   }
-
-//   render() {
-//     const { id, description } = this.props.note;
-//     return (
-//       <div>
-//         <Card
-//           style={{
-//             marginTop: "20px",
-//             padding: "2.5px",
-//             textAlign: "center",
-//           }}
-//         >
-//           <CardContent>
-//             <Typography variant="h4">{description}</Typography>
-//           </CardContent>
-
-//           <CardActions>
-//             <Button
-//               onClick={() => this.props.handleDelete(id)}
-//               variant="outlined"
-//               color="secondary"
-//               size="medium"
-//             >
-//               Delete
-//             </Button>
-//           </CardActions>
-//         </Card>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Note;
-
+//                  Necesary Imports
+// ---------------x--------------------x---------------
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+//                    UI Components
+// ---------------x--------------------x---------------
+import {
+  Typography,
+  CardContent,
+  CardActions,
+  Collapse,
+  IconButton,
+  Card,
+  makeStyles,
+  Button,
+} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+//                    Custom Styling
+// ---------------x--------------------x---------------
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 400,
@@ -81,12 +41,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Note(props) {
-  console.log("Note Props ---", props.note);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const { id, title, description, done } = props.note;
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleEdit = (id) => {
+    props.history.push(`/notes/${id}/edit`);
   };
 
   return (
@@ -104,6 +67,31 @@ export default function Note(props) {
         <IconButton aria-label="delete" onClick={() => props.handleDelete(id)}>
           <DeleteIcon fontSize="large" />
         </IconButton>
+        {done ? (
+          <Button
+            onClick={() => props.handleDone(props.note)}
+            variant="contained"
+            style={{ fontSize: "12.5px" }}
+          >
+            Done
+          </Button>
+        ) : (
+          <Button
+            onClick={() => props.handleDone(props.note)}
+            variant="contained"
+            style={{ fontSize: "12.5px" }}
+          >
+            Mark as done
+          </Button>
+        )}
+
+        <Button
+          onClick={() => handleEdit(id)}
+          variant="contained"
+          style={{ fontSize: "12.5px", marginLeft: "10px" }}
+        >
+          Edit
+        </Button>
 
         <IconButton
           className={clsx(classes.expand, {
