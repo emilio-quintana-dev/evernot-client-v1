@@ -90,11 +90,11 @@ class EditForm extends Component {
           />
           <br />
 
-          <TextField
+          <Input
             style={{
               backgroundColor: "#FFF",
-              minWidth: "600px",
-              minHeight: "200px",
+              fontSize: "15px",
+              minWidth: "400px",
             }}
             multiline
             rows={20}

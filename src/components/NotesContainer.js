@@ -32,7 +32,11 @@ const NotesContainer = (props) => {
 };
 
 const renderNotes = (props) => {
-  return props.notes.map((note, idx) => {
+  let filteredNotes = props.notes.filter((note) =>
+    note.title.includes(props.query)
+  );
+
+  return filteredNotes.map((note, idx) => {
     return (
       <Note
         key={idx}
@@ -48,6 +52,7 @@ const renderNotes = (props) => {
 const mapStateToProps = (state) => {
   return {
     notes: state.notes,
+    query: state.query,
   };
 };
 

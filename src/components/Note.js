@@ -21,7 +21,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // ---------------x--------------------x---------------
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 400,
+    minWidth: 450,
     marginBottom: 25,
   },
   media: {
@@ -108,7 +108,7 @@ export default function Note(props) {
         <CardContent>
           <Typography
             color="textPrimary"
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "15px" }}
             paragraph
           >
             {description}

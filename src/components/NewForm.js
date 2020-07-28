@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { connect } from "react-redux";
 import { addNote } from "../actions/addNote";
+import { displaySuccessSnackbar } from "../actions/displaySuccessSnackbar";
 
 class NewForm extends Component {
   constructor() {
@@ -38,6 +39,7 @@ class NewForm extends Component {
         if (response.data.status === "created") {
           this.props.addNote(response.data.note);
           this.props.history.push("/notes");
+          this.props.displaySuccessSnackbar();
         } else {
           console.log(response);
         }
@@ -72,16 +74,14 @@ class NewForm extends Component {
           />
           <br />
 
-          <TextField
+          <Input
             style={{
               backgroundColor: "#FFF",
-              minWidth: "600px",
-              minHeight: "200px",
+              fontSize: "15px",
             }}
             multiline
             rows={20}
             name="description"
-            placeholder="Content"
             value={this.state.description}
             onChange={this.handleChange}
             required
@@ -109,4 +109,4 @@ class NewForm extends Component {
   }
 }
 
-export default connect(null, { addNote })(NewForm);
+export default connect(null, { addNote, displaySuccessSnackbar })(NewForm);

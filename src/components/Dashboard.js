@@ -93,7 +93,7 @@ class Dashboard extends Component {
     this.props.history.push("/notes/new");
   };
 
-  //                  Renders: NavBar, Dashboard, NotesContainer
+  //                  Renders: NavBar, NotesContainer
   //                  Routes: /notes => Dashboard
   //                          /notes/:noteId/edit => EditForm
   //                          /notes/new => NewForm

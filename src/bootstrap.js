@@ -4,10 +4,10 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "./components/app";
-import simpleReducer from "./reducers/simpleReducer.js";
+import rootReducer from "./reducers/rootReducer.js";
 import "./style/main.scss";
 
-const store = createStore(simpleReducer);
+const store = createStore(rootReducer);
 
 function main() {
   ReactDOM.render(

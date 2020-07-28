@@ -9,6 +9,7 @@ import axios from "axios";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 import ErrorSnackbar from "./ErrorSnackbar";
+import SuccessSnackbar from "./SuccessSnackbar";
 //              Actions
 // ---------------x--------------------x---------------
 import { loginUser } from "../actions/loginUser";
@@ -21,7 +22,7 @@ class App extends Component {
     super();
 
     this.state = {
-      showSnackbar: false,
+      showErrorSnackbar: false,
     };
   }
 
@@ -32,6 +33,7 @@ class App extends Component {
   }
 
   checkLoginStatus = () => {
+    console.log("Checking for cookies...");
     axios
       .get("http://localhost:3001/logged_in", { withCredentials: true })
       .then((response) => {
@@ -39,6 +41,7 @@ class App extends Component {
           response.data.logged_in &&
           this.props.loggedInStatus === "NOT_LOGGED_IN"
         ) {
+          console.log("Sending action to store....");
           this.props.loginUser(response.data.user);
         } else if (
           !response.data.logged_in &&
@@ -64,21 +67,23 @@ class App extends Component {
 
   //      Displays SnackBar if there is a login error
   // ---------------x--------------------x---------------
-  displaySnackbar = () => {
+  displayErrorSnackbar = () => {
     this.setState({
-      showSnackbar: true,
+      showErrorSnackbar: true,
     });
 
     setTimeout(() => {
-      this.setState({ showSnackbar: false });
+      this.setState({ showErrorSnackbar: false });
     }, 5000);
   };
 
   render() {
+    console.log("APP PROPS --", this.props);
     const { loggedInStatus, user } = this.props;
     return (
       <div className="app">
-        {this.state.showSnackbar ? <ErrorSnackbar /> : null}
+        {this.state.showErrorSnackbar ? <ErrorSnackbar /> : null}
+        {this.props.displaySuccessSnackbar ? <SuccessSnackbar /> : null}
         <Router>
           <Switch>
             <Route
@@ -89,7 +94,7 @@ class App extends Component {
                   {...props}
                   handleLogin={this.handleLogin}
                   loggedInStatus={loggedInStatus}
-                  displaySnackbar={this.displaySnackbar}
+                  displayErrorSnackbar={this.displayErrorSnackbar}
                 />
               )}
             />
@@ -117,6 +122,7 @@ const mapStateToProps = (state) => {
   return {
     loggedInStatus: state.loggedInStatus,
     user: state.user,
+    displaySuccessSnackbar: state.displaySuccessSnackbar,
   };
 };
 

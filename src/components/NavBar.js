@@ -1,5 +1,6 @@
 import React from "react";
 import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
+import SearchBar from "../components/SearchBar";
 
 const NavBar = (props) => {
   return (
@@ -18,6 +19,8 @@ const NavBar = (props) => {
         >
           Notify •••
         </Typography>
+
+        <SearchBar />
 
         <Button
           onClick={props.handleNewClick}
