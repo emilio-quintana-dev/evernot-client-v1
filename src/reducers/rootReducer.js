@@ -7,7 +7,6 @@ import successSnackbarReducer from "./SucessSnackbarReducer";
 
 const rootReducer = combineReducers({
   notes: notesReducer,
-  loggedInStatus: sessionsReducer,
   user: usersReducer,
   displaySuccessSnackbar: successSnackbarReducer,
   query: queryReducer,

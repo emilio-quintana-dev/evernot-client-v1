@@ -34,7 +34,7 @@ class Login extends Component {
         if (response.data.logged_in) {
           this.props.handleSuccesfulAuth(response.data);
         } else {
-          this.props.displaySnackbar();
+          this.props.displayErrorSnackbar();
         }
       })
       .catch((err) => console.log(err));
@@ -56,37 +56,55 @@ class Login extends Component {
           style={{ textAlign: "center", marginTop: "10px" }}
         >
           <Input
+            disableUnderline
             type="email"
             name="email"
             placeholder="Email"
             value={this.state.email}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "10px", fontSize: "20px" }}
+            style={{
+              color: "#8d949b",
+              marginBottom: "10px",
+              fontSize: "20px",
+              backgroundColor: "#2e3a48",
+              border: "1px solid #444f5b",
+              borderRadius: "10px",
+              padding: "4px",
+            }}
           />
           <br />
 
           <Input
+            disableUnderline
             type="password"
             name="password"
             placeholder="Password"
             value={this.state.password}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "30px", fontSize: "20px" }}
+            style={{
+              color: "#8d949b",
+              marginBottom: "30px",
+              fontSize: "20px",
+              backgroundColor: "#2e3a48",
+              border: "1px solid #444f5b",
+              borderRadius: "10px",
+              padding: "4px",
+            }}
           />
           <br />
 
           <Button
             size="large"
             variant="contained"
-            color="primary"
             type="submit"
             style={{
               marginBottom: "10px",
               backgroundColor: "#17252A",
-              color: "#FFF",
+              backgroundColor: "#7b78ff",
               fontSize: "20px",
+              borderRadius: "10px",
             }}
             onClick={this.handleSubmit}
           >

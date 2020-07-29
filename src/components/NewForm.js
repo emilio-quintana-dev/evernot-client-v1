@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {
-  Button,
-  Input,
-  FormGroup,
-  Typography,
-  TextField,
-} from "@material-ui/core";
+import { Button, Input, FormGroup, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 import { addNote } from "../actions/addNote";
 import { displaySuccessSnackbar } from "../actions/displaySuccessSnackbar";
@@ -70,14 +64,30 @@ class NewForm extends Component {
             value={this.state.title}
             onChange={this.handleChange}
             required
-            style={{ marginBottom: "10px", fontSize: "20px" }}
+            style={{
+              marginBottom: "10px",
+              fontSize: "20px",
+              backgroundColor: "#2e3a48",
+              border: "1px solid #444f5b",
+              borderRadius: "10px",
+              color: "#8d949b",
+              padding: "2px",
+              paddingLeft: "10px",
+            }}
           />
           <br />
 
           <Input
             style={{
-              backgroundColor: "#FFF",
-              fontSize: "15px",
+              color: "#8d949b",
+              fontSize: "20px",
+              minWidth: "700px",
+              padding: "5px",
+              backgroundColor: "#2e3a48",
+              border: "1px solid #444f5b",
+              borderRadius: "10px",
+              padding: "2px",
+              paddingLeft: "10px",
             }}
             multiline
             rows={20}

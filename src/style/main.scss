@@ -1,6 +1,6 @@
 html {
   font-size: 62.5%; // 1rem is 10px
-  background-color: #3aafa9;
+  background-color: #0d1219;
 }
 
 *,
@@ -28,8 +28,17 @@ body {
   justify-items: center;
 }
 
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem; /* Footer height */
+}
+
 #footer {
-  background-color: #17252a;
+  backgroundcolor: #1a2734;
   position: absolute;
   bottom: 0;
   width: 100%;

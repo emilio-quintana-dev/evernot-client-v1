@@ -29,37 +29,26 @@ class App extends Component {
   //              Checks for cookies
   // ---------------x--------------------x---------------
   componentDidMount() {
-    this.checkLoginStatus();
-  }
-
-  checkLoginStatus = () => {
-    console.log("Checking for cookies...");
+    const api = "http://localhost:3001/logged_in";
     axios
-      .get("http://localhost:3001/logged_in", { withCredentials: true })
+      .get(api, { withCredentials: true })
       .then((response) => {
-        if (
-          response.data.logged_in &&
-          this.props.loggedInStatus === "NOT_LOGGED_IN"
-        ) {
-          console.log("Sending action to store....");
+        if (response.data.logged_in) {
           this.props.loginUser(response.data.user);
-        } else if (
-          !response.data.logged_in &&
-          this.props.loggedInStatus === "LOGGED_IN"
-        ) {
+        } else if (!response.data.logged_in) {
           this.props.logoutUser();
         }
       })
-      .catch((error) => console.log("Error", error));
-  };
+      .catch((error) => console.log("Error: ", error));
+  }
 
-  //              Sends LOGIN action to store
+  //   Sends LOGIN action to store when the form is submitted
   // ---------------x--------------------x---------------
   handleLogin = (data) => {
     this.props.loginUser(data.user);
   };
 
-  //              Sends LOGOUT action to store
+  //   Sends LOGOUT action to store when user clicks log out button
   // ---------------x--------------------x---------------
   handleLogout = () => {
     this.props.logoutUser();
@@ -78,8 +67,7 @@ class App extends Component {
   };
 
   render() {
-    console.log("APP PROPS --", this.props);
-    const { loggedInStatus, user } = this.props;
+    const { user } = this.props;
     return (
       <div className="app">
         {this.state.showErrorSnackbar ? <ErrorSnackbar /> : null}
@@ -93,7 +81,6 @@ class App extends Component {
                 <Home
                   {...props}
                   handleLogin={this.handleLogin}
-                  loggedInStatus={loggedInStatus}
                   displayErrorSnackbar={this.displayErrorSnackbar}
                 />
               )}
@@ -104,7 +91,6 @@ class App extends Component {
                 <Dashboard
                   {...routerProps}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={loggedInStatus}
                   user={user}
                 />
               )}
@@ -120,7 +106,6 @@ class App extends Component {
 // ---------------x--------------------x---------------
 const mapStateToProps = (state) => {
   return {
-    loggedInStatus: state.loggedInStatus,
     user: state.user,
     displaySuccessSnackbar: state.displaySuccessSnackbar,
   };

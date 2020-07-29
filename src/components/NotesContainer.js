@@ -6,29 +6,12 @@ import { connect } from "react-redux";
 // ---------------x--------------------x---------------
 import Note from "./Note";
 import { Typography } from "@material-ui/core";
+import notesReducer from "../reducers/notesReducer";
 
 //                  Notes Container Component
 // ---------------x--------------------x---------------
 const NotesContainer = (props) => {
-  return (
-    <div>
-      <Typography
-        variant="h1"
-        style={{
-          marginTop: "100px",
-          marginBottom: "20px",
-          textAlign: "center",
-          color: "#FFF",
-          fontSize: "70px",
-          border: "solid 5px",
-          borderRadius: "10px",
-        }}
-      >
-        Dashboard
-      </Typography>
-      {renderNotes(props)}
-    </div>
-  );
+  return <div>{renderNotes(props)}</div>;
 };
 
 const renderNotes = (props) => {
@@ -37,6 +20,7 @@ const renderNotes = (props) => {
   );
 
   return filteredNotes.map((note, idx) => {
+    console.log("NOTE OBJ--", note);
     return (
       <Note
         key={idx}

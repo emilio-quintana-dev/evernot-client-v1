@@ -5,14 +5,9 @@ import axios from "axios";
 //                    UI Components
 // ---------------x--------------------x---------------
 import { Button, Input, FormGroup, Typography } from "@material-ui/core";
-//                        Actions
-// ---------------x--------------------x---------------
-import { connect } from "react-redux";
-import { editNote } from "../actions/editNote";
-
 //                   Controlled Form
 // ---------------x--------------------x---------------
-class EditForm extends Component {
+class ShowNote extends Component {
   constructor() {
     super();
 
@@ -37,30 +32,28 @@ class EditForm extends Component {
     });
   }
 
-  //          Updates backend-frontend and re-directs
-  // ---------------x--------------------x---------------
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const id = parseInt(this.props.match.params.noteId);
-    const { title, description } = this.state;
-    const API = `http://localhost:3001/notes/${id}`;
-
-    axios
-      .patch(API, {
-        title: title,
-        description: description,
-      })
-      .then((response) => this.props.editNote(response.data.note));
-
-    this.props.history.push("/notes");
-  };
-
   //            Handles changes in controlled form
   // ---------------x--------------------x---------------
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
+  };
+
+  handleClick = (event) => {
+    const id = parseInt(this.props.match.params.noteId);
+
+    switch (event.target.innerText) {
+      case "BACK":
+        this.props.history.push("/notes");
+
+      case "EDIT":
+        this.props.history.push(`/notes/${id}/edit`);
+
+      case "DELETE":
+        this.props.handleDelete(id);
+        this.props.history.push("/notes");
+    }
   };
 
   render() {
@@ -70,10 +63,11 @@ class EditForm extends Component {
           variant="h1"
           style={{ marginTop: "100px", marginBottom: "20px", color: "#FFF" }}
         >
-          Edit Form:
+          React Note
         </Typography>
-        <FormGroup onSubmit={this.handleSubmit} style={{ textAlign: "center" }}>
+        <FormGroup style={{ textAlign: "center" }}>
           <Input
+            disabled
             type="text"
             name="title"
             placeholder="Title"
@@ -94,6 +88,7 @@ class EditForm extends Component {
           <br />
 
           <Input
+            disabled
             style={{
               color: "#8d949b",
               fontSize: "20px",
@@ -115,25 +110,56 @@ class EditForm extends Component {
           />
 
           <br />
-
-          <Button
-            style={{
-              marginBottom: "10px",
-              marginTop: "10px",
-              backgroundColor: "#17252A",
-              color: "#FFF",
-              fontSize: "20px",
-            }}
-            variant="contained"
-            color="primary"
-            onClick={this.handleSubmit}
-          >
-            Update
-          </Button>
         </FormGroup>
+        <Button
+          style={{
+            marginBottom: "10px",
+            marginRight: "10px",
+            marginTop: "10px",
+            backgroundColor: "#17252A",
+            color: "#FFF",
+            fontSize: "20px",
+          }}
+          variant="contained"
+          color="primary"
+          onClick={this.handleClick}
+        >
+          Back
+        </Button>
+
+        <Button
+          style={{
+            marginBottom: "10px",
+            marginRight: "10px",
+            marginTop: "10px",
+            backgroundColor: "#17252A",
+            color: "#FFF",
+            fontSize: "20px",
+          }}
+          variant="contained"
+          color="primary"
+          onClick={this.handleClick}
+        >
+          Edit
+        </Button>
+
+        <Button
+          style={{
+            marginBottom: "10px",
+            marginTop: "10px",
+            backgroundColor: "#17252A",
+            color: "#FFF",
+            fontSize: "20px",
+          }}
+          variant="contained"
+          color="primary"
+          onClick={this.handleClick}
+        >
+          Delete
+        </Button>
       </div>
     );
   }
 }
 
-export default connect(null, { editNote })(EditForm);
+export default ShowNote;

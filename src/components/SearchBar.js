@@ -33,26 +33,25 @@ class SearchBar extends Component {
     return (
       <div
         style={{
-          border: "1px solid #FFF",
           maxWidth: "200px",
           padding: "5px",
           marginRight: "10px",
         }}
       >
-        <SearchIcon
-          style={{
-            fontSize: "20px",
-            color: "#FFF",
-            marginRight: "2px",
-            paddingTop: "5px",
-          }}
-        />
         <InputBase
           name="query"
-          style={{ fontSize: "15px", color: "#FFF" }}
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
           onChange={this.handleChange}
+          style={{
+            color: "#8d949b",
+            padding: "2px",
+            paddingLeft: "10px",
+            fontSize: "17.5px",
+            backgroundColor: "#2e3a48",
+            border: "1px solid #444f5b",
+            borderRadius: "10px",
+          }}
         />
       </div>
     );

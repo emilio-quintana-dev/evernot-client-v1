@@ -1,9 +1,9 @@
-//              Necesary Imports
+//                   Necesary Imports
 // ---------------x--------------------x---------------
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 //                    UI Components
 // ---------------x--------------------x---------------
 import { Typography, Button } from "@material-ui/core";
@@ -11,9 +11,10 @@ import { Typography, Button } from "@material-ui/core";
 // ---------------x--------------------x---------------
 import NotesContainer from "./NotesContainer";
 import NavBar from "./NavBar";
+import ShowNote from "./ShowNote";
 import NewForm from "./NewForm";
 import EditForm from "./EditForm";
-//                        Actions
+//                       Actions
 // ---------------x--------------------x---------------
 import { fetchNotes } from "../actions/fetchNotes";
 import { deleteNote } from "../actions/deleteNote";
@@ -97,43 +98,68 @@ class Dashboard extends Component {
   //                  Routes: /notes => Dashboard
   //                          /notes/:noteId/edit => EditForm
   //                          /notes/new => NewForm
+  //                          /notes/:noteId => Show :: still need to work on this
   // ---------------x--------------------x---------------
   render() {
     return (
-      <div>
+      <div id="page-container">
         <NavBar
           user={this.props.user}
           handleLogoutClick={this.handleLogoutClick}
           handleNewClick={this.handleNewClick}
         />
+        <Switch>
+          <Route
+            exact
+            path={"/notes"}
+            render={(routerProps) => (
+              <div>
+                <Typography
+                  variant="h1"
+                  style={{
+                    marginTop: "100px",
+                    marginBottom: "20px",
+                    textAlign: "center",
+                    color: "#FFF",
+                    fontSize: "70px",
+                  }}
+                >
+                  <span style={{ color: "#66e2d5" }}># </span>
+                  Dashboard
+                </Typography>
+                <NotesContainer
+                  {...routerProps}
+                  handleDelete={this.handleDelete}
+                  handleDone={this.handleDone}
+                />
+              </div>
+            )}
+          />
 
-        <Route
-          exact
-          path={"/notes"}
-          render={(routerProps) => (
-            <NotesContainer
-              {...routerProps}
-              handleDelete={this.handleDelete}
-              handleDone={this.handleDone}
-            />
-          )}
-        />
+          <Route
+            exact
+            path={"/notes/new"}
+            render={(routerProps) => (
+              <NewForm {...routerProps} userId={this.props.user.id} />
+            )}
+          />
 
-        <Route
-          exact
-          path={"/notes/new"}
-          render={(routerProps) => (
-            <NewForm {...routerProps} userId={this.props.user.id} />
-          )}
-        />
+          <Route
+            exact
+            path={"/notes/:noteId"}
+            render={(routerProps) => (
+              <ShowNote {...routerProps} handleDelete={this.handleDelete} />
+            )}
+          />
 
-        <Route
-          exact
-          path={"/notes/:noteId/edit"}
-          render={(routerProps) => (
-            <EditForm {...routerProps} userId={this.props.user.id} />
-          )}
-        />
+          <Route
+            exact
+            path={"/notes/:noteId/edit"}
+            render={(routerProps) => (
+              <EditForm {...routerProps} userId={this.props.user.id} />
+            )}
+          />
+        </Switch>
       </div>
     );
   }
