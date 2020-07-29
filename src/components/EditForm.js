@@ -120,12 +120,10 @@ class EditForm extends Component {
             style={{
               marginBottom: "10px",
               marginTop: "10px",
-              backgroundColor: "#17252A",
-              color: "#FFF",
+              backgroundColor: "#7b78ff",
               fontSize: "20px",
             }}
             variant="contained"
-            color="primary"
             onClick={this.handleSubmit}
           >
             Update

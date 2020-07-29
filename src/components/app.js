@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 //              Custom Component
 // ---------------x--------------------x---------------
-import Home from "./Home";
+import Auth from "./Auth";
 import Dashboard from "./Dashboard";
 import ErrorSnackbar from "./ErrorSnackbar";
 import SuccessSnackbar from "./SuccessSnackbar";
@@ -26,7 +26,7 @@ class App extends Component {
     };
   }
 
-  //              Checks for cookies
+  //                  Checks for cookies
   // ---------------x--------------------x---------------
   componentDidMount() {
     const api = "http://localhost:3001/logged_in";
@@ -78,7 +78,7 @@ class App extends Component {
               exact
               path={"/login"}
               render={(props) => (
-                <Home
+                <Auth
                   {...props}
                   handleLogin={this.handleLogin}
                   displayErrorSnackbar={this.displayErrorSnackbar}
@@ -102,7 +102,7 @@ class App extends Component {
   }
 }
 
-//              Reading Access to Store
+//                Reading Access to Store
 // ---------------x--------------------x---------------
 const mapStateToProps = (state) => {
   return {

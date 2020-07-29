@@ -16,8 +16,9 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import EmailIcon from "@material-ui/icons/Email";
-
+//                    Custom Components
+// ---------------x--------------------x---------------
+import EmailNote from "./EmailNote";
 //                    Custom Styling
 // ---------------x--------------------x---------------
 const useStyles = makeStyles((theme) => ({
@@ -26,11 +27,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 500,
     marginBottom: 25,
     backgroundColor: "#1a2734",
-    border: "2px solid #2e0639",
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
+    border: "3px solid #2e0639",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -71,12 +68,8 @@ export default function Note(props) {
             style={{ color: "rgb(255 255 255 / 80%)" }}
           />
         </IconButton>
-        <IconButton aria-label="email" onClick={() => props.handleEmail(id)}>
-          <EmailIcon
-            fontSize="large"
-            style={{ color: "rgb(255 255 255 / 80%)" }}
-          />
-        </IconButton>
+        <EmailNote note={props.note} />
+
         {done ? (
           <Button
             onClick={() => props.handleDone(props.note)}

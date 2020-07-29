@@ -1,13 +1,10 @@
 //                  Necesary Imports
 // ---------------x--------------------x---------------
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 //                  Custom Components
 // ---------------x--------------------x---------------
 import Note from "./Note";
-import { Typography } from "@material-ui/core";
-import notesReducer from "../reducers/notesReducer";
-
 //                  Notes Container Component
 // ---------------x--------------------x---------------
 const NotesContainer = (props) => {
@@ -20,7 +17,6 @@ const renderNotes = (props) => {
   );
 
   return filteredNotes.map((note, idx) => {
-    console.log("NOTE OBJ--", note);
     return (
       <Note
         key={idx}

@@ -1,16 +1,20 @@
+//                    Necesary Imports
+// ---------------x--------------------x---------------
 import React, { Component } from "react";
 import axios from "axios";
-import { Button, Input, FormGroup, FormHelperText } from "@material-ui/core";
-
+//                    UI Components
+// ---------------x--------------------x---------------
+import { Button, Input, FormGroup } from "@material-ui/core";
+//              Controlled Form for Registrations
+// ---------------x--------------------x---------------
 class Registration extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       email: "",
       password: "",
       password_confirmation: "",
-      registrationErrors: "",
     };
   }
 
@@ -33,14 +37,13 @@ class Registration extends Component {
         if (response.data.status === "created") {
           this.props.handleSuccesfulAuth(response.data);
         } else {
-          this.setState({
-            registrationErrors: response.data,
-          });
+          this.props.displayErrorSnackbar();
         }
       })
       .catch((err) => console.log(err));
   };
-
+  //            Controlled Form On Change Listener
+  // ---------------x--------------------x---------------
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -48,87 +51,69 @@ class Registration extends Component {
   };
 
   render() {
+    const formStyle = {
+      textAlign: "center",
+      marginTop: "10px",
+    };
+    const inputStyle = {
+      color: "#8d949b",
+      marginBottom: "20px",
+      fontSize: "20px",
+      backgroundColor: "#2e3a48",
+      border: "1px solid #444f5b",
+      borderRadius: "10px",
+      padding: "4px",
+    };
+
+    const buttonStyle = {
+      marginBottom: "10px",
+      backgroundColor: "#7b78ff",
+      fontSize: "20px",
+      borderRadius: "10px",
+    };
     return (
-      <div>
-        <FormGroup
-          onSubmit={this.handleSubmit}
-          style={{ textAlign: "center", marginTop: "10px" }}
+      <FormGroup onSubmit={this.handleSubmit} style={formStyle}>
+        <Input
+          disableUnderline
+          type="text"
+          name="email"
+          placeholder="Email"
+          value={this.state.email}
+          onChange={this.handleChange}
+          required
+          style={inputStyle}
+        />
+
+        <Input
+          disableUnderline
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={this.state.password}
+          onChange={this.handleChange}
+          required
+          style={inputStyle}
+        />
+
+        <Input
+          disableUnderline
+          type="password"
+          name="password_confirmation"
+          placeholder="Password Confirmation"
+          value={this.state.password_confirmation}
+          onChange={this.handleChange}
+          required
+          style={inputStyle}
+        />
+
+        <Button
+          style={buttonStyle}
+          variant="contained"
+          onClick={this.handleSubmit}
         >
-          <Input
-            disableUnderline
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-            style={{
-              color: "#8d949b",
-              marginBottom: "10px",
-              fontSize: "20px",
-              backgroundColor: "#2e3a48",
-              border: "1px solid #444f5b",
-              borderRadius: "10px",
-              padding: "4px",
-            }}
-          />
-          <br />
-
-          <Input
-            disableUnderline
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-            style={{
-              color: "#8d949b",
-              marginBottom: "10px",
-              fontSize: "20px",
-              backgroundColor: "#2e3a48",
-              border: "1px solid #444f5b",
-              borderRadius: "10px",
-              padding: "4px",
-            }}
-          />
-          <br />
-
-          <Input
-            disableUnderline
-            type="password"
-            name="password_confirmation"
-            placeholder="Password Confirmation"
-            value={this.state.password_confirmation}
-            onChange={this.handleChange}
-            required
-            style={{
-              color: "#8d949b",
-              marginBottom: "10px",
-              fontSize: "20px",
-              backgroundColor: "#2e3a48",
-              border: "1px solid #444f5b",
-              borderRadius: "10px",
-              padding: "4px",
-            }}
-          />
-          <br />
-
-          <Button
-            style={{
-              marginBottom: "10px",
-              backgroundColor: "#17252A",
-              backgroundColor: "#7b78ff",
-              fontSize: "20px",
-              borderRadius: "10px",
-            }}
-            variant="contained"
-            onClick={this.handleSubmit}
-          >
-            Register
-          </Button>
-        </FormGroup>
-      </div>
+          Register
+        </Button>
+      </FormGroup>
     );
   }
 }

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 //                    UI Components
 // ---------------x--------------------x---------------
-import { Typography, Button } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 //                   Custom Components
 // ---------------x--------------------x---------------
 import NotesContainer from "./NotesContainer";
@@ -19,7 +19,6 @@ import EditForm from "./EditForm";
 import { fetchNotes } from "../actions/fetchNotes";
 import { deleteNote } from "../actions/deleteNote";
 import { markAsDone } from "../actions/markAsDone";
-
 //                    Dashboard Page
 // ---------------x--------------------x---------------
 class Dashboard extends Component {
@@ -41,7 +40,6 @@ class Dashboard extends Component {
     if (this.props.user.id) {
       const userId = this.props.user.id;
       const API = `http://localhost:3001/users/${userId}/notes`;
-
       fetch(API)
         .then((response) => response.json())
         .then((data) => this.props.fetchNotes(data.notes))
@@ -51,7 +49,7 @@ class Dashboard extends Component {
 
   //       Fetches data if there is already a cookie
   // ---------------x--------------------x---------------
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (!prevProps.user.id) {
       const userId = this.props.user.id;
       const API = `http://localhost:3001/users/${userId}/notes`;
@@ -62,7 +60,6 @@ class Dashboard extends Component {
         .catch((error) => console.log(error));
     }
   }
-
   //                   Deletes a note
   // ---------------x--------------------x---------------
   handleDelete = (noteId) => {
@@ -98,7 +95,7 @@ class Dashboard extends Component {
   //                  Routes: /notes => Dashboard
   //                          /notes/:noteId/edit => EditForm
   //                          /notes/new => NewForm
-  //                          /notes/:noteId => Show :: still need to work on this
+  //                          /notes/:noteId => ShowNote
   // ---------------x--------------------x---------------
   render() {
     return (
