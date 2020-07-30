@@ -23,7 +23,7 @@ class Registration extends Component {
     const { email, password, password_confirmation } = this.state;
     axios
       .post(
-        "http://localhost:3001/registrations",
+        "https://limitless-springs-42766.herokuapp.com/registrations",
         {
           user: {
             email: email,

@@ -29,7 +29,8 @@ class App extends Component {
   //                  Checks for cookies
   // ---------------x--------------------x---------------
   componentDidMount() {
-    const api = "http://localhost:3001/logged_in";
+    const api = "https://limitless-springs-42766.herokuapp.com/logged_in";
+
     axios
       .get(api, { withCredentials: true })
       .then((response) => {

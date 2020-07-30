@@ -26,7 +26,7 @@ class EditForm extends Component {
   // ---------------x--------------------x---------------
   componentDidMount() {
     const id = parseInt(this.props.match.params.noteId);
-    const API = `http://localhost:3001/notes/${id}`;
+    const API = `https://limitless-springs-42766.herokuapp.com/notes/${id}`;
 
     axios.get(API).then((response) => {
       const { title, description } = response.data.note;
@@ -43,7 +43,7 @@ class EditForm extends Component {
     event.preventDefault();
     const id = parseInt(this.props.match.params.noteId);
     const { title, description } = this.state;
-    const API = `http://localhost:3001/notes/${id}`;
+    const API = `https://limitless-springs-42766.herokuapp.com/notes/${id}`;
 
     axios
       .patch(API, {
