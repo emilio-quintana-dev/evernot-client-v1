@@ -23,7 +23,7 @@ class Login extends Component {
     const { email, password } = this.state;
     axios
       .post(
-        "https://limitless-springs-42766.herokuapp.com/sessions",
+        "http://localhost:3001/sessions",
         {
           user: {
             email: email,

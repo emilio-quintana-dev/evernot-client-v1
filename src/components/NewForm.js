@@ -21,7 +21,7 @@ class NewForm extends Component {
     const { userId } = this.props;
     axios
       .post(
-        "https://limitless-springs-42766.herokuapp.com/notes/new",
+        "http://localhost:3001/notes/new",
         {
           title: title,
           description: description,

@@ -21,7 +21,7 @@ class ShowNote extends Component {
   // ---------------x--------------------x---------------
   componentDidMount() {
     const id = parseInt(this.props.match.params.noteId);
-    const API = `https://limitless-springs-42766.herokuapp.com/notes/${id}`;
+    const API = `http://localhost:3001/notes/${id}`;
 
     axios.get(API).then((response) => {
       const { title, description } = response.data.note;

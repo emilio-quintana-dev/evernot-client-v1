@@ -26,7 +26,7 @@ class Dashboard extends Component {
   // ---------------x--------------------x---------------
   handleLogoutClick = () => {
     axios
-      .delete("https://limitless-springs-42766.herokuapp.com/logout", {
+      .delete("http://localhost:3001/logout", {
         withCredentials: true,
       })
       .then((response) => {
@@ -41,7 +41,7 @@ class Dashboard extends Component {
   componentDidMount() {
     if (this.props.user.id) {
       const userId = this.props.user.id;
-      const API = `https://limitless-springs-42766.herokuapp.com/users/${userId}/notes`;
+      const API = `http://localhost:3001/users/${userId}/notes`;
       fetch(API)
         .then((response) => response.json())
         .then((data) => this.props.fetchNotes(data.notes))
@@ -54,7 +54,7 @@ class Dashboard extends Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.user.id) {
       const userId = this.props.user.id;
-      const API = `https://limitless-springs-42766.herokuapp.com/users/${userId}/notes`;
+      const API = `http://localhost:3001/users/${userId}/notes`;
 
       fetch(API)
         .then((response) => response.json())
@@ -65,7 +65,7 @@ class Dashboard extends Component {
   //                   Deletes a note
   // ---------------x--------------------x---------------
   handleDelete = (noteId) => {
-    const API = `https://limitless-springs-42766.herokuapp.com/notes/${noteId}`;
+    const API = `http://localhost:3001/notes/${noteId}`;
     axios.delete(API).then((response) => console.log(response));
     this.props.deleteNote(noteId);
   };
@@ -74,7 +74,7 @@ class Dashboard extends Component {
   // ---------------x--------------------x---------------
   handleDone = (noteObj) => {
     const { id, title, description, done } = noteObj;
-    const API = `https://limitless-springs-42766.herokuapp.com/notes/${id}`;
+    const API = `http://localhost:3001/notes/${id}`;
 
     axios
       .patch(API, {
