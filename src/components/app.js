@@ -1,21 +1,21 @@
-//              Necesary Imports
+//                    Necesary Imports
 // ---------------x--------------------x---------------
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
-//              Custom Component
+//                   Custom Component
 // ---------------x--------------------x---------------
 import Auth from "./Auth";
 import Dashboard from "./Dashboard";
 import ErrorSnackbar from "./ErrorSnackbar";
 import SuccessSnackbar from "./SuccessSnackbar";
-//              Actions
+//                       Actions
 // ---------------x--------------------x---------------
 import { loginUser } from "../actions/loginUser";
 import { logoutUser } from "../actions/logoutUser";
 
-//              Main Component
+//                    Main Component
 // ---------------x--------------------x---------------
 class App extends Component {
   constructor() {
@@ -34,6 +34,7 @@ class App extends Component {
     axios
       .get(api, { withCredentials: true })
       .then((response) => {
+        console.log("RESPONSE --", response);
         if (response.data.logged_in) {
           this.props.loginUser(response.data.user);
         } else if (!response.data.logged_in) {
@@ -75,6 +76,11 @@ class App extends Component {
         {this.props.displaySuccessSnackbar ? <SuccessSnackbar /> : null}
         <Router>
           <Switch>
+            <Route
+              exact
+              path={"/"}
+              render={(props) => props.history.push("/login")}
+            />
             <Route
               exact
               path={"/login"}

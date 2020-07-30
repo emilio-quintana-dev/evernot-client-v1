@@ -65,7 +65,7 @@ class Auth extends Component {
         <CardContent>
           <Typography style={headerStyle}>
             <span style={{ color: "#66e2d5" }}>&lt;</span>
-            NOTE
+            FlatNote
             <span style={{ color: "#66e2d5" }}>&gt;</span>
           </Typography>
 

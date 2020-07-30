@@ -62,7 +62,8 @@ class Registration extends Component {
       backgroundColor: "#2e3a48",
       border: "1px solid #444f5b",
       borderRadius: "10px",
-      padding: "4px",
+      padding: "2px",
+      paddingLeft: "10px",
     };
 
     const buttonStyle = {

@@ -35,7 +35,7 @@ const NavBar = (props) => {
         <NavLink to="/notes" style={{ flexGrow: 1 }}>
           <Typography style={logoStyle}>
             <span style={{ color: "#66e2d5" }}>&lt;</span>
-            NOTE
+            FlatNote
             <span style={{ color: "#66e2d5" }}>&gt;</span>
           </Typography>
         </NavLink>
