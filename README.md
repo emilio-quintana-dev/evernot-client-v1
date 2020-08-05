@@ -25,8 +25,17 @@ Coming soon...
 
 
 # Built with 🔧
+* React
+* Redux
+* Ruby on Rails
+* Material UI
+* Postgresql
 
 # Features 🌟
+* Implemented React Router to enable client side rendering and optimized performance.
+* Designed and styled using Material UI.
+* Utilized HTTP cookies to handle sessions and deliver a better user experience.
+* Currently working on deploying both backend () and frontend to Heroku.
 
 # License 
 
